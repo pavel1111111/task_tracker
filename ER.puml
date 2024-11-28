@@ -1,0 +1,65 @@
+@startuml
+
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+}
+hide circle
+
+class "Person" as Person{
+    - Long person_id
+    ---
+    + DateTime birthdate
+    + String username
+    + Encrypted password
+    + String email
+}
+
+class "Project" as Project{
+    - Long project_id
+    - Long person_id
+    - Long status_id
+    ---
+    + String projectName
+    + DateTime created_at
+    + String status
+}
+
+class "Task_Status" as TaskStatus{
+    - Long task_status_id
+    - Long project_id
+    ---
+    + String task_status_name
+    + int task_status_ordinal
+}
+
+class "EpicTask" as EpicTask{
+    - Long epic_id
+    - Long task_status_id
+    ---
+    + String epic_name
+    + Text epic_description
+    + DateTime created_at
+    + DateTime deadline
+}
+
+class "Subtask" as Subtask{
+    - Long subtask_id
+    - Long epic_id
+    ---
+    + String subtask_name
+    + Text subtask_description
+    + DateTime created_at
+    + DateTime deadline
+}
+
+Person ||--|{ Project
+Project ||--|{ TaskStatus
+TaskStatus ||--|{ EpicTask
+EpicTask ||--|{ Subtask
+
+@enduml
