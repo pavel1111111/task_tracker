@@ -32,6 +32,10 @@ public class PersonEntity {
     @Transient
     private int age;
 
+    public int getAge() {
+        return LocalDate.now().getYear() - birthday.toLocalDate().getYear();
+    }
+
     public PersonEntity(String username, String password, String email, Date birthday){
         this.username = username;
         this.password = password;
