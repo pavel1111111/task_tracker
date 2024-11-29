@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +29,9 @@ public class PersonEntity {
     private String email;
 
     private Date birthday;
+
+    @OneToMany(mappedBy = "owner")
+    private List<ProjectEntity> projects;
 
     @Transient
     private int age;

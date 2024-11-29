@@ -22,10 +22,10 @@ class "Person" as Person{
 class "Project" as Project{
     - Long project_id
     - Long person_id
-    - Long status_id
     ---
     + String projectName
     + DateTime created_at
+    + DateTime last_updated_at
     + String status
 }
 
