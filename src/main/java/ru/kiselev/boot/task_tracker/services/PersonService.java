@@ -41,7 +41,11 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public List<ProjectEntity> getAllPersonsProjects(PersonEntity person){
-        return person.getProjects();
+//    public List<ProjectEntity> getAllPersonsProjects(PersonEntity person){
+//        return person.getProjects();
+//    }
+
+    public void deletePerson(Long id){
+        personRepository.deleteById(id);
     }
 }

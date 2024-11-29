@@ -2,11 +2,10 @@ package ru.kiselev.boot.task_tracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.kiselev.boot.task_tracker.dto.ProjectDTO;
 import ru.kiselev.boot.task_tracker.services.PersonService;
 import ru.kiselev.boot.task_tracker.services.ProjectService;
 import ru.kiselev.boot.task_tracker.storage.entities.PersonEntity;
-import ru.kiselev.boot.task_tracker.storage.entities.ProjectEntity;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +14,10 @@ import java.util.List;
 @RequestMapping("/api/people")
 public class PersonController {
     private final PersonService personService;
-    private final ProjectService projectService;
 
     @Autowired
     public PersonController(PersonService personService, ProjectService projectService) {
         this.personService = personService;
-        this.projectService = projectService;
     }
 
     @GetMapping
@@ -40,15 +37,9 @@ public class PersonController {
         return personService.getById(id);
     }
 
-    @GetMapping("/{id}/projects")
-    public List<ProjectEntity> getProjectsByPersonId(@PathVariable(name = "id") Long personId){
-        return personService.getById(personId).getProjects();
-    }
-
-    @PostMapping("/{id}/projects")
-    public ProjectEntity createProjectByPersonId(@PathVariable(name = "id") Long personId,
-                                                 @RequestBody ProjectDTO projectDTO){
-        return projectService.createProject(projectDTO, personId);
+    @DeleteMapping("/{id}")
+    public void deletePersonById(@PathVariable(name = "id") Long id){
+        personService.deletePerson(id);
     }
 
     @PostMapping

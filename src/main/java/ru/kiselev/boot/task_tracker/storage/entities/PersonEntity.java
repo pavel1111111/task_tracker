@@ -20,7 +20,7 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long person_id;
+    private Long personId;
 
     private String username;
 
@@ -30,15 +30,11 @@ public class PersonEntity {
 
     private Date birthday;
 
-    @OneToMany(mappedBy = "owner")
-    private List<ProjectEntity> projects;
-
     @Transient
     private int age;
 
-    public int getAge() {
-        return LocalDate.now().getYear() - birthday.toLocalDate().getYear();
-    }
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    private List<ProjectEntity> projects;
 
     public PersonEntity(String username, String password, String email, Date birthday){
         this.username = username;

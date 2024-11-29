@@ -7,9 +7,9 @@ import ru.kiselev.boot.task_tracker.storage.entities.ProjectEntity;
 import ru.kiselev.boot.task_tracker.storage.repositories.ProjectRepository;
 import ru.kiselev.boot.task_tracker.util.ProjectStatus;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -22,18 +22,31 @@ public class ProjectService {
         this.personService = personService;
     }
 
-    public List<ProjectEntity> getAllProjects() {
-        return this.projectRepository.findAll();
-    }
-
     public ProjectEntity createProject(ProjectDTO projectDTO, Long ownerId) {
         ProjectEntity projectEntity = ProjectEntity.builder()
                 .owner(personService.getById(ownerId))
                 .projectStatus(ProjectStatus.CREATED)
-                .created_at(Date.valueOf(LocalDate.now()))
-                .last_updated_at(Date.valueOf(LocalDate.now()))
-                .project_name(projectDTO.getName()).build();
+                .createdAt(LocalDateTime.now())
+                .lastUpdatedAt(LocalDateTime.now())
+                .name(projectDTO.getName()).build();
         this.projectRepository.save(projectEntity);
         return projectEntity;
+    }
+
+    public void deleteProject(Long projectId) {
+        this.projectRepository.deleteById(projectId);
+    }
+
+    public List<ProjectEntity> getAllPersonsProjects(Long ownerId) {
+        return projectRepository.findByOwnerPersonId(ownerId);
+    }
+
+    public ProjectEntity updateStatus(Long projectId, ProjectStatus status) {
+        Optional<ProjectEntity> project = this.projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            return null;
+        }
+        project.get().setProjectStatus(status);
+        return this.projectRepository.save(project.get());
     }
 }
