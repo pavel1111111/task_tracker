@@ -6,6 +6,7 @@ import lombok.*;
 import ru.kiselev.boot.task_tracker.util.ProjectStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="project")
@@ -33,6 +34,9 @@ public class ProjectEntity {
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
     private PersonEntity owner;
+
+    @OneToMany(mappedBy = "projectId")
+    private List<TaskStatusEntity> taskStatuses;
 
     public ProjectEntity(String name, ProjectStatus projectStatus, PersonEntity owner) {
         this.name = name;

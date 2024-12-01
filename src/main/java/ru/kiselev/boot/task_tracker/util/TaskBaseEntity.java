@@ -2,6 +2,7 @@ package ru.kiselev.boot.task_tracker.util;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @MappedSuperclass
+@NoArgsConstructor
 public abstract class TaskBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

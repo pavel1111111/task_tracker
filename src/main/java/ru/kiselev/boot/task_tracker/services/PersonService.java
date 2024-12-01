@@ -3,7 +3,6 @@ package ru.kiselev.boot.task_tracker.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kiselev.boot.task_tracker.storage.entities.PersonEntity;
-import ru.kiselev.boot.task_tracker.storage.entities.ProjectEntity;
 import ru.kiselev.boot.task_tracker.storage.repositories.PersonRepository;
 
 import java.util.List;

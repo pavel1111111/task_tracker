@@ -2,7 +2,7 @@ package ru.kiselev.boot.task_tracker.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kiselev.boot.task_tracker.dto.ProjectDTO;
+import ru.kiselev.boot.task_tracker.dto.ProjectCreationDTO;
 import ru.kiselev.boot.task_tracker.storage.entities.ProjectEntity;
 import ru.kiselev.boot.task_tracker.storage.repositories.ProjectRepository;
 import ru.kiselev.boot.task_tracker.util.ProjectStatus;
@@ -22,13 +22,13 @@ public class ProjectService {
         this.personService = personService;
     }
 
-    public ProjectEntity createProject(ProjectDTO projectDTO, Long ownerId) {
+    public ProjectEntity createProject(ProjectCreationDTO projectCreationDTO, Long ownerId) {
         ProjectEntity projectEntity = ProjectEntity.builder()
                 .owner(personService.getById(ownerId))
                 .projectStatus(ProjectStatus.CREATED)
                 .createdAt(LocalDateTime.now())
                 .lastUpdatedAt(LocalDateTime.now())
-                .name(projectDTO.getName()).build();
+                .name(projectCreationDTO.getName()).build();
         this.projectRepository.save(projectEntity);
         return projectEntity;
     }

@@ -2,7 +2,7 @@ package ru.kiselev.boot.task_tracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.kiselev.boot.task_tracker.dto.ProjectDTO;
+import ru.kiselev.boot.task_tracker.dto.ProjectCreationDTO;
 import ru.kiselev.boot.task_tracker.services.ProjectService;
 import ru.kiselev.boot.task_tracker.storage.entities.ProjectEntity;
 import ru.kiselev.boot.task_tracker.util.ProjectStatus;
@@ -26,8 +26,8 @@ public class ProjectController {
 
     @PostMapping
     public ProjectEntity createProjectByPersonId(@RequestParam(required = true) Long ownerId,
-                                                 @RequestBody ProjectDTO projectDTO){
-        return projectService.createProject(projectDTO, ownerId);
+                                                 @RequestBody ProjectCreationDTO projectCreationDTO){
+        return projectService.createProject(projectCreationDTO, ownerId);
     }
 
     @DeleteMapping("/{id}")
